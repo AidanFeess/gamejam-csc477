@@ -1255,11 +1255,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerPlacer
   towerPrefab: {fileID: 4028697413457584879, guid: a38db8350158df05487f016dbad68d52, type: 3}
-  trackParent: {fileID: 1999923379}
-  trackCheckRadius: 0.4
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 64
   towerCheckRadius: 0.5
   validColor: {r: 1, g: 1, b: 1, a: 0.5}
   invalidColor: {r: 1, g: 0.3, b: 0.3, a: 0.5}
+  towerOne: {fileID: 11400000, guid: 790a49c35d136fd39bf546b8c2234c63, type: 2}
+  towerTwo: {fileID: 11400000, guid: c371bda3f06c0fae0ab754d470faaf6c, type: 2}
+  towerThree: {fileID: 11400000, guid: 37b572f114803062498e745feddb9f0d, type: 2}
+  towerFour: {fileID: 11400000, guid: f2fef1798ec4f5a5bb4e2a3e9b4c24d4, type: 2}
   selectedTower: {fileID: 11400000, guid: 790a49c35d136fd39bf546b8c2234c63, type: 2}
 --- !u!1 &1072997716
 GameObject:

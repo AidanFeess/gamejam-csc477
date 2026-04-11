@@ -14,6 +14,13 @@ public class TowerPlacer : MonoBehaviour
     [Header("Ghost Visuals")]
     public Color validColor = new Color(1f, 1f, 1f, 0.5f);
     public Color invalidColor = new Color(1f, 0.3f, 0.3f, 0.5f);
+    
+    [Header("Towers")]
+    public TowerData towerOne;
+    public TowerData towerTwo;
+    public TowerData towerThree;
+    public TowerData towerFour;
+
 
     // runtime state
     public TowerData selectedTower;
@@ -77,6 +84,31 @@ public class TowerPlacer : MonoBehaviour
 
     void Update()
     {
+        // selecting towers
+        /*
+        1: Medicine Tower
+        2: Sleep Tower
+        3: Priest Tower
+        4: Meditation Tower
+        */
+
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            SetSelectedTower(towerOne);
+        } 
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            SetSelectedTower(towerTwo);
+        }
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+        {
+            SetSelectedTower(towerThree);
+        }
+        else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+        {
+            // SetSelectedTower(towerFour);
+        }
+
         if (Mouse.current == null) return;
 
         Vector2 screenPos = Mouse.current.position.ReadValue();
