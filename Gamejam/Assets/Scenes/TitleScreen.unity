@@ -898,6 +898,7 @@ GameObject:
   - component: {fileID: 574686556}
   - component: {fileID: 574686555}
   - component: {fileID: 574686558}
+  - component: {fileID: 574686559}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: UI Element
@@ -1031,6 +1032,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   LevelName: InfiniteLevel
+--- !u!114 &574686559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574686553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 0
 --- !u!1 &593480636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingSprite
   bobAmplitude: 10
-  bobFrequency: 2
+  bobFrequency: 3
   swingAmplitude: 10
   swingFrequency: 2
 --- !u!1 &1052214369
@@ -1904,10 +1921,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235668450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c26b0e2bdb6c7240b4d9381f4107cb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundFXManager
-  soundFXObject: {fileID: 361290530765068516, guid: c948075eb9e3b5d4781478c2eac0dab7, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: 6677ae8de827efe48a34147d613d3637, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &1255545723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2428,7 @@ GameObject:
   - component: {fileID: 1556762835}
   - component: {fileID: 1556762834}
   - component: {fileID: 1556762833}
+  - component: {fileID: 1556762836}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: UI Element
@@ -2528,6 +2549,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556762830}
   m_CullTransparentMesh: 1
+--- !u!114 &1556762836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556762830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 0
 --- !u!1 &1608887173
 GameObject:
   m_ObjectHideFlags: 0
