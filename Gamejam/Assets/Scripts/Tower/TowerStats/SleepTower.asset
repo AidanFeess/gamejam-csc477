@@ -21,7 +21,7 @@ MonoBehaviour:
   isAOE: 0
   isSupport: 0
   isDebuff: 1
-  projectilePrefab: {fileID: 3422111073993943698, guid: 8ac786e2038c680299c8a01f4a66980b, type: 3}
-  towerSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  projectilePrefab: {fileID: 7241811531511467018, guid: bd71508a20d3af6458d76bf6870c7eed, type: 3}
+  towerSprite: {fileID: 4225597641596277017, guid: becc4a7d32f219e4b8b9e5b7d2b2ad68, type: 3}
   speedDebuff: 0.8
   debuffTime: 0.5
