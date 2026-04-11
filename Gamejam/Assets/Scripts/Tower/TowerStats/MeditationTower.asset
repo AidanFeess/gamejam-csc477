@@ -17,7 +17,7 @@ MonoBehaviour:
   range: 20
   damage: 5
   fireRate: 0.5
-  projectileSpeed: 50
+  projectileSpeed: 15
   isAOE: 0
   isSupport: 0
   isDebuff: 0
