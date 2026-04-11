@@ -7,7 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 618f29ba76036dd499c7295fd0b0b094
+  - enabled: 1
+    path: Assets/Scenes/InfiniteLevel.unity
+    guid: 8d46f3ff93e15c499932ece4a1990e75
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
