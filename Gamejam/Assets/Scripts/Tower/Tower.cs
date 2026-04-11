@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
-    
     public TowerData data;
     public GameObject rangeIndicator;
 
@@ -13,7 +12,11 @@ public class Tower : MonoBehaviour
 
     [Header("Effects")]
     public GameObject sleepEffectPrefab;
+    public GameObject priestAttackEffectPrefab;
+    public float priestEffectDuration = 0.5f;
 
+    private GameObject activePriestEffect;
+    private float priestEffectTimer = 0f;
     private GameObject activeEffect;
 
     void Awake()
@@ -21,6 +24,7 @@ public class Tower : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetSelected(false);
     }
+
     private void UpdateRangeIndicator()
     {
         if (rangeIndicator != null && data != null)
@@ -59,9 +63,24 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public void SetPriestEffect(GameObject effect)
+    {
+        activePriestEffect = effect;
+    }
+
     void Update()
     {
         fireCooldown -= Time.deltaTime;
+
+        // hide the priest attack effect after its duration expires
+        if (activePriestEffect != null && activePriestEffect.activeSelf)
+        {
+            priestEffectTimer -= Time.deltaTime;
+            if (priestEffectTimer <= 0f)
+            {
+                activePriestEffect.SetActive(false);
+            }
+        }
 
         Enemy target = FindTarget();
         if (target != null && fireCooldown <= 0f)
@@ -116,6 +135,20 @@ public class Tower : MonoBehaviour
 
     private void Shoot(Enemy target)
     {
+        // show priest attack effect if this tower has one
+        if (activePriestEffect != null)
+        {
+            activePriestEffect.SetActive(true);
+            priestEffectTimer = priestEffectDuration;
+
+            // restart the animation from the beginning each time the tower fires
+            Animator effectAnim = activePriestEffect.GetComponent<Animator>();
+            if (effectAnim != null)
+            {
+                effectAnim.Play(0, -1, 0f);
+            }
+        }
+
         if (data.isSupport)
         {
             
@@ -144,8 +177,6 @@ public class Tower : MonoBehaviour
                     enemy.TakeDamage(data.damage);
                 }
             }
-        } 
-        
-        
+        }
     }
 }
