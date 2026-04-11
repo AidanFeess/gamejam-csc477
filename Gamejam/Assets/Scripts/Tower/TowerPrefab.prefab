@@ -109,6 +109,8 @@ MonoBehaviour:
   data: {fileID: 0}
   rangeIndicator: {fileID: 9023374761726859643}
   sleepEffectPrefab: {fileID: 2317933719644634291, guid: 1fc7dbc1a40b92c45947f4d3cb6312b8, type: 3}
+  priestAttackEffectPrefab: {fileID: 3645211468361983073, guid: 1c3496b1c3a3d3f40b82038d365ea5d1, type: 3}
+  priestEffectDuration: 0.5
 --- !u!58 &-7369575618723852976
 CircleCollider2D:
   m_ObjectHideFlags: 0

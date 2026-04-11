@@ -1,5 +1,4 @@
 using UnityEngine;
-using Unity;
 using System.Collections;
 
 public class Enemy : MonoBehaviour
@@ -11,11 +10,15 @@ public class Enemy : MonoBehaviour
     public int worth = 5;
     public bool doesRotate = true;
 
+    [Header("Animation")]
+    public string animationStateName;
+
     [Header("References")]
     public Transform[] waypoints;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
+    private Animator animator;
     private float currentHP;
     private float speedMultiplier = 1f;
     private int currentWaypoint = 0;
@@ -25,6 +28,7 @@ public class Enemy : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         spawnPosition = transform.position;
     }
 
@@ -34,6 +38,20 @@ public class Enemy : MonoBehaviour
         if (waypoints != null && waypoints.Length > 0)
         {
             FaceWaypoint(waypoints[0]);
+        }
+
+        // play the animation if this enemy has one
+        if (animator != null)
+        {
+            if (!string.IsNullOrEmpty(animationStateName))
+            {
+                animator.enabled = true;
+                animator.Play(animationStateName);
+            }
+            else
+            {
+                animator.enabled = false;
+            }
         }
     }
 
@@ -55,15 +73,18 @@ public class Enemy : MonoBehaviour
         if (Vector2.Distance(transform.position, waypoints[currentWaypoint].position) < 0.01f)
         {
             currentWaypoint++;
-            FaceWaypoint(waypoints[currentWaypoint]);
+            if (currentWaypoint < waypoints.Length)
+            {
+                FaceWaypoint(waypoints[currentWaypoint]);
+            }
         }
     }
 
     public void TakeDamage(float damage) 
     {
-        // take damage then check if we're dead
         currentHP -= damage;
-        if (currentHP <= 0){
+        if (currentHP <= 0)
+        {
             OnDeath();
         }
     }
@@ -85,12 +106,11 @@ public class Enemy : MonoBehaviour
 
     private void OnHit() 
     {
-        // TODO: what to do when the enemy gets hit (could play special animations or audio)
+        // TODO: what to do when the enemy gets hit
     }
 
     private void OnDeath() 
     {
-        // same as OnHit but on death instead
         GameController.Instance.TryTransaction(worth);
         Destroy(gameObject);
     }
@@ -106,7 +126,7 @@ public class Enemy : MonoBehaviour
         if (!doesRotate || waypoint == null) return;
 
         Vector2 direction = (Vector2)waypoint.position - (Vector2)transform.position;
-        if (direction.sqrMagnitude < 0.0001f) return; // too close to compute a meaningful angle
+        if (direction.sqrMagnitude < 0.0001f) return;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -134,21 +154,5 @@ public class Enemy : MonoBehaviour
     public float GetHP()
     {
         return currentHP;
-    }
-
-    private float NormalizedDistanceToNextWaypoint()
-    {
-        Transform next = waypoints[currentWaypoint];
-        Transform prev = currentWaypoint == 0 ? null : waypoints[currentWaypoint - 1];
-
-        if (prev == null)
-        {
-            // no previous waypoint, just use distance to next
-            return Vector2.Distance(transform.position, next.position);
-        }
-
-        float segmentLength = Vector2.Distance(prev.position, next.position);
-        float remaining = Vector2.Distance(transform.position, next.position);
-        return segmentLength > 0 ? remaining / segmentLength : 0f;
     }
 }
