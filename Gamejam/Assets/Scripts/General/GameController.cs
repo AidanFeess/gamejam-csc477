@@ -25,12 +25,17 @@ public class Wave
 // Main game controller stuff
 public class GameController : MonoBehaviour
 {
+
+    public static GameController Instance { get; private set; }
+
     [Header("Player Stats")]
     public float maxHP = 100f;
     public float maxSpeed = 2f;
+    public int startingCash = 60;
 
     [Header("References")]
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI moneyText;
     public EnemySpawner spawner;
 
     [Header("Custom Waves")]
@@ -42,7 +47,8 @@ public class GameController : MonoBehaviour
 
     // Player live stats    
     private float currentSpeed = 1f;
-    private float currHP = 100f;
+    private float currentHP = 100f;
+    private int currentCash = 60;
 
     // Game values
     private int currentWaveIndex = 0;
@@ -50,15 +56,31 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        currHP = maxHP;
+        currentHP = maxHP;
+        currentCash = startingCash;
         UpdateHealthUI();
+        UpdateMoneyUI();
     }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
+    // Speed
 
     public void SetSpeed(float speed)
     {
         currentSpeed = math.clamp(speed, 0, maxSpeed);
         Time.timeScale = currentSpeed;
     }
+
+    // Waves
 
     private IEnumerator SpawnWave(Wave wave)
     {
@@ -108,7 +130,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator RunWaves()
     {
-        while (currHP > 0)
+        while (currentHP > 0)
         {
             Wave wave = GetNextWave();
             waveInProgress = true;
@@ -125,11 +147,48 @@ public class GameController : MonoBehaviour
         StartCoroutine(RunWaves());
     }
 
+    // Public Stats Interfaces
+    public void TakeDamage(float amount)
+    {
+        currentHP -= amount;
+        if (currentHP < 0) currentHP = 0;
+        UpdateHealthUI();
+        if (currentHP <= 0)
+        {
+            // TODO: implement game over;
+            Debug.Log("Game over");
+            Time.timeScale = 0f;
+        }
+    }
+
+    public bool TryTransaction(int amount)
+    {
+        int transactCash = currentCash + amount; // as long as amount is negative for losing money, it should work
+        if (transactCash < 0) {
+            return false;
+        } 
+        else
+        {
+            currentCash = transactCash;
+            UpdateMoneyUI();
+            return true;
+        }
+    }
+
+    // UI
     private void UpdateHealthUI()
     {
         if (healthText != null)
         {
-            healthText.text = $"HP: {currHP}";
+            healthText.text = $"HP: {currentHP}";
+        }
+    }
+
+    private void UpdateMoneyUI()
+    {
+        if (moneyText != null)
+        {
+            moneyText.text = $"Neurons: {currentCash}";
         }
     }
 }
