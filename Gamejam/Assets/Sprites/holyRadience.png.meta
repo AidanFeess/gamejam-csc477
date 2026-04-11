@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 83b580b3af8675143b782292b3388dd3
+guid: 24bb8f3d3b0853e459dbe7d614936979
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8225556082772143291
-    second: clown 1_0
+      213: 5705674969678049885
+    second: holyRadience_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clown 1_0
+      name: holyRadience_0
       rect:
         serializedVersion: 2
-        x: 133
-        y: 116
-        width: 464
-        height: 501
+        x: 176
+        y: 148
+        width: 377
+        height: 379
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bbcefa92dab072270800000000000000
-      internalID: 8225556082772143291
+      spriteID: d527f7ba721ae2f40800000000000000
+      internalID: 5705674969678049885
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      clown 1_0: 8225556082772143291
+      holyRadience_0: 5705674969678049885
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
