@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
         }
         else if (currentWaypoint >= waypoints.Length - 1)
         {
-            Debug.Log("I kill you");
+            // TODO: damage the player's base here
         }
     }
 
@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     private void OnHit() 
     {
-        // what to do when the enemy gets hit (could play special animations or audio)
+        // TODO: what to do when the enemy gets hit (could play special animations or audio)
     }
 
     private void OnDeath() 
