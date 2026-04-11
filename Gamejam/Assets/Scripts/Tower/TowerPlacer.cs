@@ -162,6 +162,18 @@ public class TowerPlacer : MonoBehaviour
                             Quaternion.identity);
                         fx.transform.SetParent(ghostTowerScript.transform);
                     }
+
+                    // spawn priest attack effect (hidden until tower fires)
+                    if (selectedTower.towerName == "Priest Tower" && ghostTowerScript.priestAttackEffectPrefab != null)
+                    {
+                        GameObject fx = Instantiate(
+                            ghostTowerScript.priestAttackEffectPrefab,
+                            ghostTowerScript.transform.position,
+                            Quaternion.identity);   
+                        fx.transform.SetParent(ghostTowerScript.transform);
+                        fx.SetActive(false);
+                        ghostTowerScript.SetPriestEffect(fx);
+                    }
                 }
 
                 if (ghostCollider != null) ghostCollider.enabled = true;
