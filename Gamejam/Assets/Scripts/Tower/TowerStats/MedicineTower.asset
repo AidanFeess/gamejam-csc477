@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: MedicineTower
   cost: 20
-  range: 1
+  range: 2
   damage: 2
   fireRate: 1
   projectileSpeed: 15

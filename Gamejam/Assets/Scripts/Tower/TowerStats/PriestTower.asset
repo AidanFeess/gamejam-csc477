@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Priest Tower
   cost: 40
-  range: 5
+  range: 0.8
   damage: 1
   fireRate: 1
   projectileSpeed: 15
