@@ -14,13 +14,12 @@ public class TowerPlacer : MonoBehaviour
     [Header("Ghost Visuals")]
     public Color validColor = new Color(1f, 1f, 1f, 0.5f);
     public Color invalidColor = new Color(1f, 0.3f, 0.3f, 0.5f);
-    
+
     [Header("Towers")]
     public TowerData towerOne;
     public TowerData towerTwo;
     public TowerData towerThree;
     public TowerData towerFour;
-
 
     // runtime state
     public TowerData selectedTower;
@@ -28,10 +27,10 @@ public class TowerPlacer : MonoBehaviour
     private SpriteRenderer ghostSpriteRenderer;
     private Tower ghostTowerScript;
     private Collider2D ghostCollider;
+    private Animator ghostAnimator;
 
     private static Tower currentlySelected;
 
-    // Called by UI buttons to begin placing a tower
     public void SetSelectedTower(TowerData newTower)
     {
         selectedTower = newTower;
@@ -48,17 +47,19 @@ public class TowerPlacer : MonoBehaviour
         ghostTowerScript = currentGhost.GetComponent<Tower>();
         ghostCollider = currentGhost.GetComponent<Collider2D>();
         ghostSpriteRenderer = currentGhost.GetComponent<SpriteRenderer>();
+        ghostAnimator = currentGhost.GetComponent<Animator>();
 
-        // disable gameplay behavior while it's a ghost
+        // disable animator on ghost so it can't override the transform
+        if (ghostAnimator != null) ghostAnimator.enabled = false;
+
         if (ghostTowerScript != null)
         {
             ghostTowerScript.enabled = false;
-            ghostTowerScript.Initialize(towerData);
-            ghostTowerScript.SetSelected(true); // show range indicator
+            ghostTowerScript.Initialize(towerData, isGhost: true);
+            ghostTowerScript.SetSelected(true);
         }
 
         if (ghostCollider != null) ghostCollider.enabled = false;
-
         if (ghostSpriteRenderer != null) ghostSpriteRenderer.color = validColor;
     }
 
@@ -73,6 +74,7 @@ public class TowerPlacer : MonoBehaviour
         ghostTowerScript = null;
         ghostCollider = null;
         ghostSpriteRenderer = null;
+        ghostAnimator = null;
     }
 
     private void SelectTower(Tower tower)
@@ -84,29 +86,13 @@ public class TowerPlacer : MonoBehaviour
 
     void Update()
     {
-        // selecting towers
-        /*
-        1: Medicine Tower
-        2: Sleep Tower
-        3: Priest Tower
-        4: Meditation Tower
-        */
-
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        // tower hotkey selection (1-4)
+        if (Keyboard.current != null)
         {
-            SetSelectedTower(towerOne);
-        } 
-        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
-        {
-            SetSelectedTower(towerTwo);
-        }
-        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
-        {
-            SetSelectedTower(towerThree);
-        }
-        else if (Keyboard.current.digit4Key.wasPressedThisFrame)
-        {
-            // SetSelectedTower(towerFour);
+            if (Keyboard.current.digit1Key.wasPressedThisFrame) SetSelectedTower(towerOne);
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame) SetSelectedTower(towerTwo);
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame) SetSelectedTower(towerThree);
+            // else if (Keyboard.current.digit4Key.wasPressedThisFrame) SetSelectedTower(towerFour);
         }
 
         if (Mouse.current == null) return;
@@ -115,7 +101,7 @@ public class TowerPlacer : MonoBehaviour
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(screenPos);
         mouseWorld.z = 0;
 
-        // move the ghost with the mouse and tint based on validity
+        // move ghost with mouse and tint based on validity
         bool placementValid = true;
         if (currentGhost != null)
         {
@@ -128,7 +114,7 @@ public class TowerPlacer : MonoBehaviour
             }
         }
 
-        // right-click or escape cancels placement
+        // right-click or escape cancels
         if (Mouse.current.rightButton.wasPressedThisFrame ||
             (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame))
         {
@@ -153,10 +139,9 @@ public class TowerPlacer : MonoBehaviour
             }
         }
 
-        // clicked empty space — deselect any previously selected tower
         SelectTower(null);
 
-        // try to place a tower if we're in placing mode
+        // try to place a tower
         if (selectedTower != null && currentGhost != null && placementValid)
         {
             if (GameController.Instance.TryTransaction(-selectedTower.cost))
@@ -166,33 +151,50 @@ public class TowerPlacer : MonoBehaviour
                 {
                     ghostTowerScript.enabled = true;
                     ghostTowerScript.SetSelected(false);
+
+                    // spawn persistent sleep effect for sleep tower
+                    if (selectedTower.towerName == "Sleep Tower" && ghostTowerScript.sleepEffectPrefab != null)
+                    {
+                        Vector3 offset = new Vector3(0, 0.5f, 0);
+                        GameObject fx = Instantiate(
+                            ghostTowerScript.sleepEffectPrefab,
+                            ghostTowerScript.transform.position + offset,
+                            Quaternion.identity);
+                        fx.transform.SetParent(ghostTowerScript.transform);
+                    }
                 }
+
                 if (ghostCollider != null) ghostCollider.enabled = true;
+                if (ghostAnimator != null) ghostAnimator.enabled = true;
                 if (ghostSpriteRenderer != null) ghostSpriteRenderer.color = Color.white;
 
                 currentGhost.transform.position = mouseWorld;
 
-                // release the ghost reference so it stays as a placed tower
+                // release references — it's a real tower now
                 currentGhost = null;
                 ghostTowerScript = null;
                 ghostCollider = null;
                 ghostSpriteRenderer = null;
+                ghostAnimator = null;
                 selectedTower = null;
             }
             else
             {
-                // TODO: failed transaction, play failure audio or whatever
+                // TODO: failed transaction, play failure audio
             }
         }
     }
 
     private bool IsPlacementValid(Vector2 position)
     {
-        // check if the cursor is inside any track collider
+        if (selectedTower == null) return false;
+        if (!GameController.Instance.CanAfford(selectedTower.cost)) return false;
+
+        // can't place on the track
         Collider2D trackHit = Physics2D.OverlapPoint(position, trackLayer);
         if (trackHit != null) return false;
 
-        // check for nearby existing towers
+        // can't overlap other towers
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
         foreach (GameObject tower in towers)
         {

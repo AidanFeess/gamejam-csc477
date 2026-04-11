@@ -1955,13 +1955,33 @@ MonoBehaviour:
   spawner: {fileID: 1302640098}
   waves:
   - groups:
-    - enemyPrefab: {fileID: 6998642944928321381, guid: dc304a172e9c21a7399dca747af9d3c3, type: 3}
+    - enemyPrefab: {fileID: 6998642944928321381, guid: 722108563bf95a704b9d3315a187791b, type: 3}
       delayBeforeGroup: 0
-      count: 10
+      count: 20
+      spawnInterval: 1
+    timeBeforeNextWave: 5
+  - groups:
+    - enemyPrefab: {fileID: 6998642944928321381, guid: a8fe9ebf99dff2bfdbe368af24293854, type: 3}
+      delayBeforeGroup: 0
+      count: 20
       spawnInterval: 0.5
-    timeBeforeNextWave: 0
+    timeBeforeNextWave: 5
+  - groups:
+    - enemyPrefab: {fileID: 6998642944928321381, guid: 1eee273781017c9db83a364ff54fb782, type: 3}
+      delayBeforeGroup: 0
+      count: 20
+      spawnInterval: 1.5
+    timeBeforeNextWave: 5
+  - groups:
+    - enemyPrefab: {fileID: 6998642944928321381, guid: ccafdd7cba5e2049292d4a2371c0b793, type: 3}
+      delayBeforeGroup: 0
+      count: 1
+      spawnInterval: 0
+    timeBeforeNextWave: 5
   enemyPool:
-  - {fileID: 6998642944928321381, guid: dc304a172e9c21a7399dca747af9d3c3, type: 3}
+  - {fileID: 6998642944928321381, guid: 722108563bf95a704b9d3315a187791b, type: 3}
+  - {fileID: 6998642944928321381, guid: a8fe9ebf99dff2bfdbe368af24293854, type: 3}
+  - {fileID: 6998642944928321381, guid: 1eee273781017c9db83a364ff54fb782, type: 3}
   waveIncrease: 20
 --- !u!4 &1375240337
 Transform:

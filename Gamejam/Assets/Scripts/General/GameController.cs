@@ -161,6 +161,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Just checks if a transaction is possible
+    public bool CanAfford(int amount)
+    {
+        return (currentCash - amount) >= 0;
+    }
+    // Will do the transaction if it can
     public bool TryTransaction(int amount)
     {
         int transactCash = currentCash + amount; // as long as amount is negative for losing money, it should work

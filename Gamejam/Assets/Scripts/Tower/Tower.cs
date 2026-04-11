@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
+    
     public TowerData data;
     public GameObject rangeIndicator;
 
@@ -10,9 +11,15 @@ public class Tower : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private static Tower selectedTower;
 
+    [Header("Effects")]
+    public GameObject sleepEffectPrefab;
+
+    private GameObject activeEffect;
+
     void Awake()
     {
-        SetSelected(false); // hidden by default
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        SetSelected(false);
     }
     private void UpdateRangeIndicator()
     {
@@ -26,7 +33,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void Initialize(TowerData newData)
+    public void Initialize(TowerData newData, bool isGhost = false)
     {
         data = newData;
         if (spriteRenderer != null && data.towerSprite != null)
@@ -35,6 +42,13 @@ public class Tower : MonoBehaviour
         }
         UpdateRangeIndicator();
         SetSelected(false);
+
+        if (!isGhost && data.towerName == "Sleep Tower" && sleepEffectPrefab != null)
+        {
+            Vector3 offset = new Vector3(0, 0.5f, 0);
+            activeEffect = Instantiate(sleepEffectPrefab, transform.position + offset, Quaternion.identity);
+            activeEffect.transform.SetParent(transform);
+        }
     }
 
     public void SetSelected(bool selected)
@@ -111,7 +125,7 @@ public class Tower : MonoBehaviour
             // for now assume every debuff tower is single target
             GameObject proj = Instantiate(data.projectilePrefab, transform.position, Quaternion.identity);
             Projectile p = proj.GetComponent<Projectile>();
-            p.Initialize(target.transform.position, data.damage, data.projectileSpeed);
+            p.Initialize(target.transform.position, data.damage, data.projectileSpeed, data.speedDebuff, data.debuffTime);
         }
         else
         {

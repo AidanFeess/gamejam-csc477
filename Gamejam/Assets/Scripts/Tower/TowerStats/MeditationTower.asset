@@ -18,5 +18,10 @@ MonoBehaviour:
   damage: 5
   fireRate: 0.5
   projectileSpeed: 50
+  isAOE: 0
+  isSupport: 0
+  isDebuff: 0
   projectilePrefab: {fileID: 3422111073993943698, guid: 8ac786e2038c680299c8a01f4a66980b, type: 3}
-  towerSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  towerSprite: {fileID: 6693351876008021017, guid: 256aa0ee08c364948afe242644d2e298, type: 3}
+  speedDebuff: 0.8
+  debuffTime: 0.5

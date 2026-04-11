@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float speed = 3f;
     public float damage = 10f;
     public int worth = 5;
+    public bool doesRotate = true;
 
     [Header("References")]
     public Transform[] waypoints;
@@ -30,6 +31,10 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        if (waypoints != null && waypoints.Length > 0)
+        {
+            FaceWaypoint(waypoints[0]);
+        }
     }
 
     void Update()
@@ -50,6 +55,7 @@ public class Enemy : MonoBehaviour
         if (Vector2.Distance(transform.position, waypoints[currentWaypoint].position) < 0.01f)
         {
             currentWaypoint++;
+            FaceWaypoint(waypoints[currentWaypoint]);
         }
     }
 
@@ -93,6 +99,17 @@ public class Enemy : MonoBehaviour
     {
         GameController.Instance.TakeDamage(damage);
         Destroy(gameObject);
+    }
+
+    private void FaceWaypoint(Transform waypoint)
+    {
+        if (!doesRotate || waypoint == null) return;
+
+        Vector2 direction = (Vector2)waypoint.position - (Vector2)transform.position;
+        if (direction.sqrMagnitude < 0.0001f) return; // too close to compute a meaningful angle
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public float GetPathProgress()
