@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fb24552a742c94c8ba1aca793553fc, type: 3}
+  m_Name: MedicineTower
+  m_EditorClassIdentifier: Assembly-CSharp::TowerData
+  towerName: MedicineTower
+  cost: 20
+  range: 10
+  damage: 2
+  fireRate: 1
+  projectileSpeed: 50
+  projectilePrefab: {fileID: 3422111073993943698, guid: 8ac786e2038c680299c8a01f4a66980b, type: 3}
+  towerSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
