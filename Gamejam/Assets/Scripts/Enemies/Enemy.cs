@@ -21,6 +21,11 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     public Transform[] waypoints;
 
+    [Header("HP Bar")]
+    public UnityEngine.UI.Slider hpSlider;
+    public GameObject hpBarRoot;
+    public Vector3 hpBarOffset = new Vector3(0, 0.6f, 0);
+
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
     private Animator animator;
@@ -40,6 +45,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        UpdateHPBar();
         if (waypoints != null && waypoints.Length > 0)
         {
             FaceWaypoint(waypoints[0]);
@@ -85,9 +91,35 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if (hpBarRoot != null)
+        {
+            // pin position to the enemy's center plus a fixed world-space offset
+            hpBarRoot.transform.position = transform.position + hpBarOffset;
+            // keep rotation upright regardless of enemy rotation
+            hpBarRoot.transform.rotation = Quaternion.identity;
+        }
+    }
+
+    private void UpdateHPBar()
+    {
+        if (hpSlider != null)
+        {
+            hpSlider.value = currentHP / maxHP;
+        }
+
+        // hide bar at full HP
+        if (hpBarRoot != null)
+        {
+            hpBarRoot.SetActive(currentHP < maxHP);
+        }
+    }
+
     public void TakeDamage(float damage) 
     {
         currentHP -= damage;
+        UpdateHPBar();
         if (currentHP <= 0)
         {
             OnDeath();
