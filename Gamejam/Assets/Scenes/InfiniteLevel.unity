@@ -4961,7 +4961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Over!
+  m_text: 'GAME OVER
 
 
     You made to to wave {waveNum}!
