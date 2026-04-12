@@ -29,8 +29,15 @@ MonoBehaviour:
   attackSpeedBuff: 1.15
   attackRangeBuff: 1.15
   unlockWave: 3
-  isLocked: 0
+  isLocked: 1
   infoSprite: {fileID: 4225597641596277017, guid: becc4a7d32f219e4b8b9e5b7d2b2ad68, type: 3}
   infoDescription: Sleep is necessary for your mind to reset and maintain its peak
     function, allowing you to continue your journey towards mind mastery. Slows a
     single enemy at a time.
+  masteryPerKill: 0
+  masteryPerShot: 1
+  masteryCap: 100
+  damagePerMastery: 0
+  rangePerMastery: 0
+  fireRatePerMastery: 0.02
+  debuffDurationPerMastery: 0.02

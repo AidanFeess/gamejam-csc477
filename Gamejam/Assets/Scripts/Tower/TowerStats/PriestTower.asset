@@ -29,8 +29,15 @@ MonoBehaviour:
   attackSpeedBuff: 1.15
   attackRangeBuff: 1.15
   unlockWave: 6
-  isLocked: 0
+  isLocked: 1
   infoSprite: {fileID: -827016883341640748, guid: 5afecb94b0aff134f9544992efed2048, type: 3}
   infoDescription: Religion is a common mechanism for facing fears, and understanding
     your religious beliefs can bring you another step closer to mastering your mind.
     Deals damage in a small AOE around the tower.
+  masteryPerKill: 1
+  masteryPerShot: 0
+  masteryCap: 100
+  damagePerMastery: 0
+  rangePerMastery: 0.01
+  fireRatePerMastery: 0.01
+  debuffDurationPerMastery: 0
