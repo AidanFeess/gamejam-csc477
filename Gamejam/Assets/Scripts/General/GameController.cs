@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI waveText;
     public GameObject gameOverScreen;
     public TextMeshProUGUI gameOverText;
+    public GameObject pauseScreen;
     public EnemySpawner spawner;
 
     [Header("Speed Button")]
@@ -151,6 +152,18 @@ public class GameController : MonoBehaviour
             }
         }
         #endif
+
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (pauseScreen.activeInHierarchy == true)
+            {
+                pauseScreen.SetActive(false);
+            }
+            else
+            {
+                pauseScreen.SetActive(true);
+            }
+        }
     }
     
     public void AddMastery(float mastery)
