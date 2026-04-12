@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Mathematics;
 
 public class Enemy : MonoBehaviour
 {
@@ -48,7 +49,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        maxHP = maxHP * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 10);
         currentHP = maxHP;
+        speed = speed * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 20);
         UpdateHPBar();
         if (waypoints != null && waypoints.Length > 0)
         {

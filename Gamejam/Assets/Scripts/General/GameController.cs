@@ -485,6 +485,10 @@ public class GameController : MonoBehaviour
         return true;
     }
 
+    public int GetCurrentWave()
+    {
+        return currentWaveIndex;
+    }
     private void GameOver()
     {
         gameUI.SetActive(false);
