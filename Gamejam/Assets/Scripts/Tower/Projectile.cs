@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public bool facesTarget = true;
     public float rotationOffset = 0f;
 
+    private Tower ownerTower;
     private float enemySpeedDebuff = 1f;
     private float enemyDebuffTime = .5f;
 
@@ -16,12 +17,13 @@ public class Projectile : MonoBehaviour
     private float damage;
     private float lifetime = 0f;
 
-    public void Initialize(Vector2 targetPosition, float damage, float projectileSpeed, float enemySpeedDebuff = 1f, float enemyDebuffTime = .5f)
+    public void Initialize(Vector2 targetPosition, float damage, float projectileSpeed, Tower ownerTower, float enemySpeedDebuff = 1f, float enemyDebuffTime = .5f)
     {
         this.damage = damage;
         this.speed = projectileSpeed;
         this.enemySpeedDebuff = enemySpeedDebuff;
         this.enemyDebuffTime = enemyDebuffTime;
+        this.ownerTower = ownerTower;
         direction = ((Vector2)(targetPosition - (Vector2)transform.position)).normalized;
         if (facesTarget)
         {
@@ -52,7 +54,7 @@ public class Projectile : MonoBehaviour
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, ownerTower);
             // debuffs
             if (enemySpeedDebuff < 1f)
             {

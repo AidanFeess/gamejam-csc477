@@ -119,13 +119,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage) 
+    public void TakeDamage(float damage, Tower attacker) 
     {
+        print(attacker);
         currentHP -= damage;
         UpdateHPBar();
         if (currentHP <= 0)
         {
-            OnDeath();
+            OnDeath(attacker);
         }
     }
 
@@ -149,10 +150,31 @@ public class Enemy : MonoBehaviour
         // TODO: what to do when the enemy gets hit
     }
 
-    private void OnDeath() 
+    private void OnDeath(Tower killer) 
     {
-        GameController.Instance.TryTransaction(worth);
-        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        if (killer != null)
+        {
+            killer.AddMasteryFromKill();
+        }
+
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.TryTransaction(worth);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy tried to give money, but GameController.Instance is missing!");
+        }
+
+        if (SoundFXManager.instance != null)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy tried to play death sound, but SoundFXManager.instance is missing!");
+        }
+
         Destroy(gameObject);
     }
 

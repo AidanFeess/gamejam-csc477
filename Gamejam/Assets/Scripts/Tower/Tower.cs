@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
@@ -19,11 +20,22 @@ public class Tower : MonoBehaviour
     public float tempRangeBuff = 1f;
     public float tempAttackSpeedBuff = 1f;
 
+    [Header("Visual")]
+    public Slider masterySlider;
+    public GameObject masteryRoot; // before any mastery is gained
+
+    [Header("Mastery")]
+    public float effectiveDamage => data.damage * (1f + mastery * data.damagePerMastery);
+    public float effectiveRange => tempRangeBuff * data.range * (1f + mastery * data.rangePerMastery);
+    public float effectiveFireRate => tempAttackSpeedBuff * data.fireRate * (1f + mastery * data.fireRatePerMastery);
+
+
     private GameObject activePriestEffect;
     private float priestEffectTimer = 0f;
     private GameObject activeEffect;
     private bool isGhost;
     private List<Tower> lastBuffedTowers = new List<Tower>();
+    private float mastery = 0f;
 
     public int GetSellValue()
     {
@@ -34,7 +46,18 @@ public class Tower : MonoBehaviour
         GameController.Instance.TryTransaction(data.sellValue);
         Destroy(gameObject);
     }
-
+    public void AddMasteryFromKill()
+    {
+        mastery = Mathf.Min(mastery + data.masteryPerKill, data.masteryCap);
+        masterySlider.value = mastery / data.masteryCap;
+        masteryRoot.SetActive(mastery > 0);
+    }
+    private void AddMasteryFromShot()
+    {
+        mastery = Mathf.Min(mastery + data.masteryPerShot, data.masteryCap);
+        masterySlider.value = mastery / data.masteryCap;
+        masteryRoot.SetActive(mastery > 0);
+    }
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -48,7 +71,7 @@ public class Tower : MonoBehaviour
             RangeIndicator indicator = rangeIndicator.GetComponent<RangeIndicator>();
             if (indicator != null)
             {
-                indicator.SetRadius(GetRangeWithBuffs());
+                indicator.SetRadius(effectiveRange);
             }
         }
     }
@@ -113,7 +136,7 @@ public class Tower : MonoBehaviour
             if (target != null && fireCooldown <= 0f)
             {
                 Shoot(target);
-                fireCooldown = 1 / (data.fireRate * data.attackSpeedBuff);
+                fireCooldown = 1 / (effectiveFireRate);
             }
         } 
         else
@@ -122,15 +145,10 @@ public class Tower : MonoBehaviour
             if (target != null && fireCooldown <= 0f)
             {
                 Shoot(target);
-                fireCooldown = 1 / (data.fireRate * data.attackSpeedBuff);
+                fireCooldown = 1 / (effectiveFireRate);
             }
         }
         
-    }
-
-    private float GetRangeWithBuffs()
-    {
-        return data.range * tempRangeBuff;
     }
 
     // Picks the farthest target along the track
@@ -143,7 +161,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in enemyObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > GetRangeWithBuffs()) continue;
+            if (dist > effectiveRange) continue;
 
             Enemy e = obj.GetComponent<Enemy>();
             if (e == null) continue;
@@ -165,7 +183,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in towerObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > GetRangeWithBuffs()) continue;
+            if (dist > effectiveRange) continue;
             return obj.GetComponent<Tower>();
         }
 
@@ -180,7 +198,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in enemyObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > GetRangeWithBuffs()) continue;
+            if (dist > effectiveRange) continue;
 
             Enemy e = obj.GetComponent<Enemy>();
             if (e == null) continue;
@@ -198,7 +216,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in towerObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > GetRangeWithBuffs()) continue;
+            if (dist > effectiveRange) continue;
 
             Tower t = obj.GetComponent<Tower>();
             if (t == null || t == this) continue;
@@ -210,6 +228,7 @@ public class Tower : MonoBehaviour
 
     private void Shoot(MonoBehaviour target)
     {
+        AddMasteryFromShot();
         // show priest attack effect if this tower has one
         if (activePriestEffect != null)
         {
@@ -263,7 +282,7 @@ public class Tower : MonoBehaviour
         {
             GameObject proj = Instantiate(data.projectilePrefab, transform.position, Quaternion.identity);
             Projectile p = proj.GetComponent<Projectile>();
-            p.Initialize(targetPos, data.damage, data.projectileSpeed, data.speedDebuff, data.debuffTime);
+            p.Initialize(targetPos, effectiveDamage, data.projectileSpeed, this, data.speedDebuff, data.debuffTime);
         }
         else
         {
@@ -271,14 +290,14 @@ public class Tower : MonoBehaviour
             {
                 GameObject proj = Instantiate(data.projectilePrefab, transform.position, Quaternion.identity);
                 Projectile p = proj.GetComponent<Projectile>();
-                p.Initialize(targetPos, data.damage, data.projectileSpeed);
+                p.Initialize(targetPos, effectiveDamage, data.projectileSpeed, this);
             }
             else
             {
                 List<Enemy> nearbyEnemies = FindAllTargetsInRange();
                 foreach (Enemy enemy in nearbyEnemies)
                 {
-                    enemy.TakeDamage(data.damage);
+                    enemy.TakeDamage(effectiveDamage, this);
                 }
             }
         }
