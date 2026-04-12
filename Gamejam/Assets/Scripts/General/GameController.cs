@@ -409,7 +409,7 @@ public class GameController : MonoBehaviour
             EnemyGroup group = new EnemyGroup();
             group.enemyPrefab = enemyPool[UnityEngine.Random.Range(0, enemyPool.Length)];
             group.count = 3 + (wavesPast * waveIncrease / 10);
-            group.spawnInterval = 1f;
+            group.spawnInterval = math.clamp(1f - (wavesPast * .05f), .05f, 1);
             group.delayBeforeGroup = i == 0 ? 0f : 1f;
             wave.groups[i] = group;
         }

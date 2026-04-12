@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.85
+  m_fontSize: 22.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4873,7 +4873,7 @@ MonoBehaviour:
   - {fileID: 6998642944928321381, guid: 1eee273781017c9db83a364ff54fb782, type: 3}
   waveIncrease: 20
   bossPrefab: {fileID: 6998642944928321381, guid: ccafdd7cba5e2049292d4a2371c0b793, type: 3}
-  baseBossCount: 2
+  baseBossCount: 3
   allTowers:
   - {fileID: 11400000, guid: 790a49c35d136fd39bf546b8c2234c63, type: 2}
   - {fileID: 11400000, guid: c371bda3f06c0fae0ab754d470faaf6c, type: 2}

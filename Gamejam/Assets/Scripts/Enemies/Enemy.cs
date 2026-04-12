@@ -49,9 +49,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        maxHP = maxHP * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 10);
+        maxHP = maxHP * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 5);
         currentHP = maxHP;
-        speed = speed * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 20);
+        speed = speed * 1 + (math.clamp(GameController.Instance.GetCurrentWave() - 10, 0, 1000) / 10);
         UpdateHPBar();
         if (waypoints != null && waypoints.Length > 0)
         {
