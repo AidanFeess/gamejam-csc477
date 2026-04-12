@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 125894223}
   - component: {fileID: 125894222}
   - component: {fileID: 125894221}
+  - component: {fileID: 125894224}
   m_Layer: 5
   m_Name: WaveButton
   m_TagString: Untagged
@@ -251,6 +252,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125894219}
   m_CullTransparentMesh: 1
+--- !u!114 &125894224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125894219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &169004412
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +464,7 @@ GameObject:
   - component: {fileID: 276840460}
   - component: {fileID: 276840459}
   - component: {fileID: 276840458}
+  - component: {fileID: 276840461}
   m_Layer: 5
   m_Name: SpeedButton
   m_TagString: Untagged
@@ -567,6 +585,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276840456}
   m_CullTransparentMesh: 1
+--- !u!114 &276840461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276840456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &285276677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1820,7 @@ GameObject:
   - component: {fileID: 789474211}
   - component: {fileID: 789474210}
   - component: {fileID: 789474209}
+  - component: {fileID: 789474212}
   m_Layer: 5
   m_Name: PriestTower
   m_TagString: Untagged
@@ -1908,6 +1943,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789474207}
   m_CullTransparentMesh: 1
+--- !u!114 &789474212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789474207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &874524799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,6 +2110,7 @@ GameObject:
   - component: {fileID: 952031733}
   - component: {fileID: 952031732}
   - component: {fileID: 952031731}
+  - component: {fileID: 952031734}
   m_Layer: 5
   m_Name: MedicineTower
   m_TagString: Untagged
@@ -2180,6 +2232,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952031729}
   m_CullTransparentMesh: 1
+--- !u!114 &952031734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952031729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &971013561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,6 +2833,7 @@ GameObject:
   - component: {fileID: 1201764218}
   - component: {fileID: 1201764217}
   - component: {fileID: 1201764216}
+  - component: {fileID: 1201764219}
   m_Layer: 5
   m_Name: MeditationTower
   m_TagString: Untagged
@@ -2887,6 +2956,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201764214}
   m_CullTransparentMesh: 1
+--- !u!114 &1201764219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201764214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &1228288833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,7 +3693,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -4971,6 +5056,7 @@ GameObject:
   - component: {fileID: 2121580792}
   - component: {fileID: 2121580791}
   - component: {fileID: 2121580790}
+  - component: {fileID: 2121580793}
   m_Layer: 5
   m_Name: SleepTower
   m_TagString: Untagged
@@ -5093,6 +5179,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121580788}
   m_CullTransparentMesh: 1
+--- !u!114 &2121580793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121580788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
