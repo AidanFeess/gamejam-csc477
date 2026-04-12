@@ -102,6 +102,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         currentHP = maxHP;
         currentCash = startingCash;
         UpdateHealthUI();
