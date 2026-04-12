@@ -1140,6 +1140,7 @@ GameObject:
   - component: {fileID: 562061012}
   - component: {fileID: 562061011}
   - component: {fileID: 562061010}
+  - component: {fileID: 562061013}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -1195,8 +1196,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 3284878866515727140, guid: f57e7d6a1faebbd41973a24a53ef9d6c, type: 3}
-    m_PressedSprite: {fileID: -602528480882379853, guid: a44384c76b9a88e46bb0ee982e3b6ca3, type: 3}
+    m_HighlightedSprite: {fileID: -8994960978810285650, guid: 3ad8bf897669c9f429b22c80e51a3e1d, type: 3}
+    m_PressedSprite: {fileID: 1494129521487606, guid: 0174d95bc13e9f841823f1d487870897, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1242,7 +1243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8811806715494619191, guid: cf674f9887024214aa0aa4775ea2fc1b, type: 3}
+  m_Sprite: {fileID: 8572043569924737516, guid: ec2eab066740368429340fc5040c80b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1260,6 +1261,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 562061008}
   m_CullTransparentMesh: 1
+--- !u!114 &562061013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562061008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &574738015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,6 +1535,7 @@ GameObject:
   - component: {fileID: 636521490}
   - component: {fileID: 636521489}
   - component: {fileID: 636521488}
+  - component: {fileID: 636521491}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1573,8 +1591,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 3284878866515727140, guid: f57e7d6a1faebbd41973a24a53ef9d6c, type: 3}
-    m_PressedSprite: {fileID: -602528480882379853, guid: a44384c76b9a88e46bb0ee982e3b6ca3, type: 3}
+    m_HighlightedSprite: {fileID: -4019097937451829302, guid: 6fd366cb31a7d184d954e858c9c5a333, type: 3}
+    m_PressedSprite: {fileID: -6948179130230143484, guid: 2c2f0eb38f7475a41a71ea39992f63f3, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1620,7 +1638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8811806715494619191, guid: cf674f9887024214aa0aa4775ea2fc1b, type: 3}
+  m_Sprite: {fileID: -4019097937451829302, guid: 6fd366cb31a7d184d954e858c9c5a333, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1638,6 +1656,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636521486}
   m_CullTransparentMesh: 1
+--- !u!114 &636521491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636521486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &648598288
 GameObject:
   m_ObjectHideFlags: 0
@@ -5673,8 +5707,9 @@ GameObject:
   - component: {fileID: 1927676313}
   - component: {fileID: 1927676312}
   - component: {fileID: 1927676311}
+  - component: {fileID: 1927676314}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5793,6 +5828,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927676309}
   m_CullTransparentMesh: 1
+--- !u!114 &1927676314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927676309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78252253c14ed2147a3215f53575928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  clickSound: {fileID: 8300000, guid: dc2e573d03bfd7b4686c856f67620be3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 2090304fab1cefd4c81178a31555d89e, type: 3}
+  volume: 1
+  playHoverOnce: 1
 --- !u!1 &1937336845
 GameObject:
   m_ObjectHideFlags: 0
