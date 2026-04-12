@@ -154,9 +154,8 @@ public class TowerPlacer : MonoBehaviour
             }
         }
 
-        // right-click or escape cancels
-        if (Mouse.current.rightButton.wasPressedThisFrame ||
-            (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame))
+        // right-click
+        if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             CancelPlacing();
             return;
