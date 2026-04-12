@@ -31,8 +31,16 @@ MonoBehaviour:
   unlockWave: 1
   isLocked: 0
   infoSprite: {fileID: 2619156217251398772, guid: be6427bef441f0a43a74f21fa3ae855e, type: 3}
-  infoDescription: Medicine is a common way to help cope with fears and mental illnesses
-    alike. This tower deals moderate damage to a single enemy at a time.
+  infoDescription: 'Welcome to your brain! Riddled by fears, you must learn to master
+    your mind using coping mechanisms.  To begin with you have the Medicine coping
+    mechanism. Medicine is a common way to help cope with fears and mental illnesses
+    alike. This coping mechanism deals moderate damage to a single enemy at a time
+    at a high range. When you place a coping mechanism, it will be weak, but the
+    longer is it around the more your brain will master the skill of using it, increasing
+    its effectiveness.
+
+
+    Good luck!'
   masteryPerKill: 1
   masteryPerShot: 0
   masteryCap: 100
