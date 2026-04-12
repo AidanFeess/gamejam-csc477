@@ -2400,13 +2400,13 @@ MonoBehaviour:
   spawner: {fileID: 1302640098}
   speedButton: {fileID: 276840458}
   standardSpeedSprites:
-    normal: {fileID: 0}
-    highlighted: {fileID: 0}
-    pressed: {fileID: 0}
+    normal: {fileID: -809684882555269560, guid: 42f6f72a17c8d8547acddaf5722f09a3, type: 3}
+    highlighted: {fileID: -4121185178731465289, guid: 289e7c846dd7ecc4593cfbd283ca7f32, type: 3}
+    pressed: {fileID: -5248241262728857441, guid: 125ca77f909bf7449b661bcb5c6c045b, type: 3}
   fastForwardSprites:
-    normal: {fileID: 0}
-    highlighted: {fileID: 0}
-    pressed: {fileID: 0}
+    normal: {fileID: 5201476170250103895, guid: 5ae8f8ab9ede1464ebe6a75ee1373a2d, type: 3}
+    highlighted: {fileID: 8872522183153902488, guid: d724763c451e0d14894c3c8e2d9679c5, type: 3}
+    pressed: {fileID: -6206342687975461866, guid: 759216a8f0c9a2e4aa80d71869b2a4a4, type: 3}
   waveButton: {fileID: 125894221}
   nextWaveSprites:
     normal: {fileID: -2230229002620744338, guid: 5d4ae252a2491a845b1e0a6a0fb7eda1, type: 3}
