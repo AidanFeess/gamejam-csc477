@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
             if (pauseScreen.activeInHierarchy == true)
             {
                 pauseScreen.SetActive(false);
-                Time.timeScale = 1;
+                Time.timeScale = currentSpeed;
             }
             else
             {
