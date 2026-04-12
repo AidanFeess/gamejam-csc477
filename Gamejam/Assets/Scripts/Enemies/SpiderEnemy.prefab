@@ -578,6 +578,8 @@ MonoBehaviour:
   hpSlider: {fileID: 1055855545034639980}
   hpBarRoot: {fileID: 6479294706673786101}
   hpBarOffset: {x: 0, y: 0.6, z: 0}
+  damageSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
 --- !u!95 &4550478107692194811
 Animator:
   serializedVersion: 7

@@ -556,6 +556,9 @@ MonoBehaviour:
   - {fileID: 0}
   hpSlider: {fileID: 8615774332151586300}
   hpBarRoot: {fileID: 2801713311998418986}
+  hpBarOffset: {x: 0, y: 0.6, z: 0}
+  damageSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
 --- !u!1 &7191125953210951987
 GameObject:
   m_ObjectHideFlags: 0

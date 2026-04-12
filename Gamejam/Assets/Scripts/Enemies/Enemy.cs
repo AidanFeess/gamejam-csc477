@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioClip damageSoundClip;
+    [SerializeField] private AudioClip deathSoundClip;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
@@ -121,12 +122,14 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage, Tower attacker) 
     {
-        print(attacker);
         currentHP -= damage;
         UpdateHPBar();
         if (currentHP <= 0)
         {
             OnDeath(attacker);
+        } else
+        {
+            OnHit();
         }
     }
 
@@ -147,7 +150,14 @@ public class Enemy : MonoBehaviour
 
     private void OnHit() 
     {
-        // TODO: what to do when the enemy gets hit
+        if (SoundFXManager.Instance != null && damageSoundClip != null)
+        {
+            SoundFXManager.Instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy tried to play onhit sound, but SoundFXManager or damageSoundClip is missing!");
+        }
     }
 
     private void OnDeath(Tower killer) 
@@ -166,13 +176,13 @@ public class Enemy : MonoBehaviour
             Debug.LogWarning("Enemy tried to give money, but GameController.Instance is missing!");
         }
 
-        if (SoundFXManager.Instance != null)
+        if (SoundFXManager.Instance != null && deathSoundClip != null) // death noise
         {
-            SoundFXManager.Instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(deathSoundClip, transform, 1f);
         }
         else
         {
-            Debug.LogWarning("Enemy tried to play death sound, but SoundFXManager.instance is missing!");
+            Debug.LogWarning("Enemy tried to play death sound, but SoundFXManager or deathSoundClip is missing!");
         }
 
         Destroy(gameObject);
