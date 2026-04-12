@@ -110,6 +110,8 @@ public class GameController : MonoBehaviour
         UpdateSpeedButtonSprites();
         UpdateWaveButtonSprites();
 
+        gameOverScreen.SetActive(false);
+
         if (allTowers != null)
         {
             for (int i = 0; i < allTowers.Length; i++)
@@ -140,13 +142,12 @@ public class GameController : MonoBehaviour
             else if (Keyboard.current.f11Key.wasPressedThisFrame)
             {
                 MoneyBags();
-            } 
-        }
-        if (currentHP <= 0)
-        {
-            GameOver();
-        }
-        
+            }
+            else if (Keyboard.current.f9Key.wasPressedThisFrame)
+            {
+                TakeDamage(999);
+            }
+        }    
     }
     
     public void AddMastery(float mastery)
@@ -444,8 +445,8 @@ public class GameController : MonoBehaviour
         UpdateHealthUI();
         if (currentHP <= 0)
         {
-            Debug.Log("Game over");
             Time.timeScale = 0f;
+            GameOver();
         }
     }
 
