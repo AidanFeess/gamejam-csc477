@@ -19,6 +19,16 @@ public class Tower : MonoBehaviour
     private float priestEffectTimer = 0f;
     private GameObject activeEffect;
 
+    public int GetSellValue()
+    {
+        return data.sellValue;
+    }
+    public void Sell()
+    {
+        GameController.Instance.TryTransaction(data.sellValue);
+        Destroy(gameObject);
+    }
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
