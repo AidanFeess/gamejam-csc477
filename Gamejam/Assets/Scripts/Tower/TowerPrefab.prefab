@@ -150,6 +150,8 @@ MonoBehaviour:
   priestEffectDuration: 0.5
   tempRangeBuff: 1
   tempAttackSpeedBuff: 1
+  masterySlider: {fileID: 3517508628841130713}
+  masteryRoot: {fileID: 4171951652655423372}
 --- !u!58 &-7369575618723852976
 CircleCollider2D:
   m_ObjectHideFlags: 0
