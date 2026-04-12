@@ -34,3 +34,10 @@ MonoBehaviour:
   infoDescription: 'Meditation is the key to mind mastery, calming your thoughts
     and allowing you to breathe and think clearly. This tower gives a 15% attack
     speed and range buff to nearby towers. '
+  masteryPerKill: 0
+  masteryPerShot: 0.0025
+  masteryCap: 100
+  damagePerMastery: 0
+  rangePerMastery: 0.01
+  fireRatePerMastery: 0
+  debuffDurationPerMastery: 0

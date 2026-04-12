@@ -450,7 +450,7 @@ public class GameController : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        if (healthText != null) healthText.text = $"HP: {currentHP}";
+        if (healthText != null) healthText.text = $"      {currentHP}";
     }
 
     private void UpdateCashUI()

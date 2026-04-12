@@ -30,4 +30,14 @@ public class TowerData : ScriptableObject
     public bool isLocked = true;
     public Sprite infoSprite;
     [TextArea(3, 6)] public string infoDescription;
+    [Header("Mastery")]
+    public float masteryPerKill = 1f;
+    public float masteryPerShot = 0f;
+    public float masteryCap = 100f;
+
+    // what does mastery multiply?
+    public float damagePerMastery = 0f;     // e.g., 0.01 = +1% damage per point
+    public float rangePerMastery = 0f;
+    public float fireRatePerMastery = 0f;
+    public float debuffDurationPerMastery = 0f;
 }
