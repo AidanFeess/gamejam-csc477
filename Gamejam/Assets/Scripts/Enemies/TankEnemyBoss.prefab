@@ -483,10 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48563853c690507f28274f94abdf4ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHP: 500
+  maxHP: 400
   speed: 0.3
   damage: 999
-  worth: 100
+  worth: 80
   doesRotate: 1
   unlockWave: 10
   infoSprite: {fileID: 2501803903455310409, guid: c8b28ed71bfc8ee43b9cbd0b8e133e4c, type: 3}
@@ -502,6 +502,7 @@ MonoBehaviour:
   - {fileID: 0}
   hpSlider: {fileID: 7877795278599755261}
   hpBarRoot: {fileID: 6559261659339459232}
+  hpBarOffset: {x: 0, y: 0.6, z: 0}
 --- !u!95 &3532956218244104309
 Animator:
   serializedVersion: 7

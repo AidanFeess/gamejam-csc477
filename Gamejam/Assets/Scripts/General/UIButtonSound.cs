@@ -31,12 +31,12 @@ public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void PlayClickSound()
     {
-        SoundFXManager.instance.PlaySoundFXClip(clickSound, transform, volume);
+        SoundFXManager.Instance.PlaySoundFXClip(clickSound, transform, volume);
     }
 
     void PlayHoverSound()
     {
-        SoundFXManager.instance.PlaySoundFXClip(hoverSound, transform, volume);
+        SoundFXManager.Instance.PlaySoundFXClip(hoverSound, transform, volume);
     }
 
     void OnDisable()
