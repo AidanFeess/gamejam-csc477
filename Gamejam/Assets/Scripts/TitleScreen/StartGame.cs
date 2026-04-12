@@ -4,6 +4,11 @@ public class StartButton : MonoBehaviour
 {
     public string LevelName;
 
+    void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     public void LoadLevel()
     {
         SceneManager.LoadScene(LevelName);
