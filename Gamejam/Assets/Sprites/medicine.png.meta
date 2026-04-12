@@ -116,12 +116,12 @@ TextureImporter:
       name: medicine_0
       rect:
         serializedVersion: 2
-        x: 268
-        y: 130
-        width: 177
-        height: 300
+        x: 105
+        y: 29
+        width: 500
+        height: 500
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5600daaa00fb32b4eba53d4b477ea452
     internalID: 0
     vertices: []
     indices: 

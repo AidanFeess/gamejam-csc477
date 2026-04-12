@@ -239,6 +239,11 @@ MonoBehaviour:
   damage: 10
   worth: 5
   doesRotate: 1
+  unlockWave: 0
+  infoSprite: {fileID: 306902510168618218, guid: 0e0579fe930d8ab4182d7b96b020c1df, type: 3}
+  infoDescription: 'An intense fear of snakes: Ophidiophobia. These enemies are decently
+    fast, with a mid-sized health pool. Taking them out will start your journey toward
+    mind mastery.'
   animationStateName: SnakeMove
   waypoints:
   - {fileID: 0}

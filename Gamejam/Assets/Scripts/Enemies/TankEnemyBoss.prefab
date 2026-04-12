@@ -185,6 +185,11 @@ MonoBehaviour:
   damage: 999
   worth: 100
   doesRotate: 1
+  unlockWave: 10
+  infoSprite: {fileID: 2501803903455310409, guid: c8b28ed71bfc8ee43b9cbd0b8e133e4c, type: 3}
+  infoDescription: The Tank is a formidable foe, the manifestation of PTSD and war.
+    It moves slowly and deliberately, with a massive health pool. To destroy this
+    enemy is a great feat, and the final step towards mind mastery.
   animationStateName: 
   waypoints:
   - {fileID: 0}

@@ -40,6 +40,7 @@ public class TowerPlacer : MonoBehaviour
 
     public void SetSelectedTower(TowerData newTower)
     {
+        if (newTower == null || newTower.isLocked) return;
         selectedTower = newTower;
         BeginPlacing(newTower);
     }
@@ -61,7 +62,6 @@ public class TowerPlacer : MonoBehaviour
 
         if (ghostTowerScript != null)
         {
-            ghostTowerScript.enabled = false;
             ghostTowerScript.Initialize(towerData, isGhost: true);
             ghostTowerScript.SetSelected(true);
         }
@@ -132,7 +132,7 @@ public class TowerPlacer : MonoBehaviour
             if (Keyboard.current.digit1Key.wasPressedThisFrame) SetSelectedTower(towerOne);
             else if (Keyboard.current.digit2Key.wasPressedThisFrame) SetSelectedTower(towerTwo);
             else if (Keyboard.current.digit3Key.wasPressedThisFrame) SetSelectedTower(towerThree);
-            // else if (Keyboard.current.digit4Key.wasPressedThisFrame) SetSelectedTower(towerFour);
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame) SetSelectedTower(towerFour);
         }
 
         if (Mouse.current == null) return;
@@ -189,8 +189,8 @@ public class TowerPlacer : MonoBehaviour
                 // promote ghost to a real tower
                 if (ghostTowerScript != null)
                 {
-                    ghostTowerScript.enabled = true;
                     ghostTowerScript.SetSelected(false);
+                    ghostTowerScript.UnghostTower();
 
                     // spawn persistent sleep effect for sleep tower
                     if (selectedTower.towerName == "Sleep Tower" && ghostTowerScript.sleepEffectPrefab != null)
@@ -247,11 +247,13 @@ public class TowerPlacer : MonoBehaviour
         if (trackHit != null) return false;
 
         // can't overlap other towers
-        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
-        foreach (GameObject tower in towers)
+        Collider2D[] overlappingColliders = Physics2D.OverlapCircleAll(position, towerCheckRadius);
+
+        foreach (Collider2D col in overlappingColliders)
         {
-            if (currentGhost != null && tower == currentGhost) continue;
-            if (Vector2.Distance(position, tower.transform.position) < towerCheckRadius)
+            if (currentGhost != null && col.gameObject == currentGhost) continue;
+
+            if (col.CompareTag("Tower"))
             {
                 return false;
             }

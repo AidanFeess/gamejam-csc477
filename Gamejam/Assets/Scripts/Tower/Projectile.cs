@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("Stats")]
     public float speed = 15f;
     public float maxLifetime = 5f;
+    [Header("Rotation")]
+    public bool facesTarget = true;
+    public float rotationOffset = 0f;
+
     private float enemySpeedDebuff = 1f;
     private float enemyDebuffTime = .5f;
 
@@ -18,6 +23,17 @@ public class Projectile : MonoBehaviour
         this.enemySpeedDebuff = enemySpeedDebuff;
         this.enemyDebuffTime = enemyDebuffTime;
         direction = ((Vector2)(targetPosition - (Vector2)transform.position)).normalized;
+        if (facesTarget)
+        {
+            FaceDirection(direction);
+        }
+    }
+
+    private void FaceDirection(Vector2 dir)
+    {
+        if (dir.sqrMagnitude < 0.0001f) return;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + rotationOffset;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     void Update()

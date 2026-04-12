@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class EnemyGroup
@@ -60,6 +61,17 @@ public class GameController : MonoBehaviour
     public GameObject[] enemyPool;
     public int waveIncrease = 20;
 
+    [Header("Boss Waves")]
+    public GameObject bossPrefab;
+    public int baseBossCount = 2;
+
+    [Header("Unlockables")]
+    public TowerData[] allTowers;
+    public GameObject[] allEnemies;
+
+    [Header("Tower UI Buttons")]
+    public Button[] towerButtons;
+
     // Player live stats
     private float currentSpeed = 1f;
     private float currentHP = 100f;
@@ -89,11 +101,72 @@ public class GameController : MonoBehaviour
         currentHP = maxHP;
         currentCash = startingCash;
         UpdateHealthUI();
-        UpdateMoneyUI();
+        UpdateCashUI();
         UpdateWaveUI();
         UpdateSpeedButtonSprites();
         UpdateWaveButtonSprites();
+
+        if (allTowers != null)
+        {
+            for (int i = 0; i < allTowers.Length; i++)
+            {
+                TowerData tower = allTowers[i];
+                if (tower == null) continue;
+                tower.isLocked = tower.unlockWave > 1;
+
+                if (!tower.isLocked)
+                {
+                    UnlockTowerButton(i);
+                }
+            }
+        }
+
+        SetPriceIndicators();
+        CheckUnlocks(1);
     }
+
+    void Update()
+    {
+        if (Keyboard.current != null)
+        {
+           if (Keyboard.current.f12Key.wasPressedThisFrame)
+            {
+                UnlockAllTowers();
+            }
+            else if (Keyboard.current.f11Key.wasPressedThisFrame)
+            {
+                MoneyBags();
+            } 
+        }
+        
+    }
+    
+    // ───── Cheats ─────
+
+    private void UnlockAllTowers()
+    {
+        if (allTowers == null) return;
+
+        for (int i = 0; i < allTowers.Length; i++)
+        {
+            TowerData tower = allTowers[i];
+            if (tower == null || !tower.isLocked) continue;
+
+            tower.isLocked = false;
+            UnlockTowerButton(i);
+        }
+
+        Debug.Log("[Dev] All towers unlocked");
+    }
+
+    private void MoneyBags()
+    {
+        currentCash = 99999;
+        UpdateCashUI();
+
+        Debug.Log("[Dev] Cash set to 99999");
+    }
+
 
     // ───── Speed ─────
 
@@ -121,9 +194,6 @@ public class GameController : MonoBehaviour
 
     // ───── Waves ─────
 
-    // Called by the wave button's OnClick.
-    // In manual mode: starts the next wave.
-    // In auto mode: toggles auto off (so clicking it again acts as a pause).
     public void OnWaveButtonClicked()
     {
         if (autoAdvance)
@@ -145,7 +215,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Toggle between manual and auto-advance. Wire to a secondary button or keypress.
     public void ToggleAutoAdvance()
     {
         autoAdvance = !autoAdvance;
@@ -167,13 +236,92 @@ public class GameController : MonoBehaviour
         UpdateWaveUI();
     }
 
+    private void SetPriceIndicators()
+    {
+        if (allTowers == null || towerButtons == null) return;
+
+        for (int i = 0; i < allTowers.Length && i < towerButtons.Length; i++)
+        {
+            TowerData tower = allTowers[i];
+            Button button = towerButtons[i];
+            if (tower == null || button == null) continue;
+
+            TextMeshProUGUI priceText = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (priceText != null)
+            {
+                priceText.text = tower.cost.ToString();
+            }
+        }
+    }
+
+    private void CheckUnlocks(int waveNumber)
+    {
+        // check towers
+        if (allTowers != null)
+        {
+            for (int i = 0; i < allTowers.Length; i++)
+            {
+                TowerData tower = allTowers[i];
+                if (tower != null && tower.unlockWave == waveNumber)
+                {
+                    if (tower.isLocked)
+                    {
+                        tower.isLocked = false;
+                        UnlockTowerButton(i);
+                    }
+                    InfoScreen.Instance?.Show(tower.infoDescription, tower.infoSprite);
+                    return;
+                }
+            }
+        }
+
+        // check enemies
+        if (allEnemies != null)
+        {
+            foreach (GameObject enemyPrefab in allEnemies)
+            {
+                if (enemyPrefab == null) continue;
+                Enemy enemyScript = enemyPrefab.GetComponent<Enemy>();
+                if (enemyScript != null && enemyScript.unlockWave == waveNumber)
+                {
+                    InfoScreen.Instance?.Show(enemyScript.infoDescription, enemyScript.infoSprite);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void UnlockTowerButton(int index)
+    {
+        if (towerButtons == null || index < 0 || index >= towerButtons.Length) return;
+        Button button = towerButtons[index];
+        if (button == null) return;
+
+        // reset button image color to white
+        Image img = button.GetComponent<Image>();
+        if (img != null) img.color = Color.white;
+
+        // destroy the LockIcon child if it exists
+        Transform lockIcon = button.transform.Find("LockIcon");
+        if (lockIcon != null) Destroy(lockIcon.gameObject);
+    }
+
     private IEnumerator RunSingleWave(Wave wave)
     {
         waveInProgress = true;
         yield return StartCoroutine(SpawnWave(wave));
-        waveInProgress = false;
 
+        // wait until all enemies from this wave are gone
+        while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+        {
+            yield return null;
+        }
+
+        waveInProgress = false;
         currentWaveIndex++;
+        UpdateWaveUI();
+
+        CheckUnlocks(currentWaveIndex + 1);
 
         if (autoAdvance && currentHP > 0)
         {
@@ -209,9 +357,13 @@ public class GameController : MonoBehaviour
     {
         int wavesPast = waveNumber - waves.Length + 1;
 
+        bool isBossWave = wavesPast > 0 && wavesPast % 10 == 0;
+
         Wave wave = new Wave();
+
         int groupCount = UnityEngine.Random.Range(2, 5);
-        wave.groups = new EnemyGroup[groupCount];
+        int totalGroups = isBossWave && bossPrefab != null ? groupCount + 1 : groupCount;
+        wave.groups = new EnemyGroup[totalGroups];
 
         for (int i = 0; i < groupCount; i++)
         {
@@ -221,6 +373,19 @@ public class GameController : MonoBehaviour
             group.spawnInterval = 1f;
             group.delayBeforeGroup = i == 0 ? 0f : 1f;
             wave.groups[i] = group;
+        }
+
+        if (isBossWave && bossPrefab != null)
+        {
+            int bossWaveNumber = wavesPast / 10;
+            int bossCount = baseBossCount * (int)Mathf.Pow(2, bossWaveNumber - 1);
+
+            EnemyGroup bossGroup = new EnemyGroup();
+            bossGroup.enemyPrefab = bossPrefab;
+            bossGroup.count = bossCount;
+            bossGroup.spawnInterval = 2f;
+            bossGroup.delayBeforeGroup = 2f;
+            wave.groups[totalGroups - 1] = bossGroup;
         }
 
         wave.timeBeforeNextWave = 5f;
@@ -277,7 +442,7 @@ public class GameController : MonoBehaviour
         int transactCash = currentCash + amount;
         if (transactCash < 0) return false;
         currentCash = transactCash;
-        UpdateMoneyUI();
+        UpdateCashUI();
         return true;
     }
 
@@ -288,9 +453,9 @@ public class GameController : MonoBehaviour
         if (healthText != null) healthText.text = $"HP: {currentHP}";
     }
 
-    private void UpdateMoneyUI()
+    private void UpdateCashUI()
     {
-        if (moneyText != null) moneyText.text = $"Neurons: {currentCash}";
+        if (moneyText != null) moneyText.text = $"      {currentCash}";
     }
 
     private void UpdateWaveUI()

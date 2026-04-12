@@ -22,4 +22,12 @@ public class TowerData : ScriptableObject
     [Header("Debuff Settings")]
     public float speedDebuff = 0.8f;
     public float debuffTime = 0.5f;
+    [Header("Buff Settings")]
+    public float attackSpeedBuff = 1.15f;
+    public float attackRangeBuff = 1.15f;
+    [Header("Unlock Info")]
+    public int unlockWave = 0;
+    public bool isLocked = true;
+    public Sprite infoSprite;
+    [TextArea(3, 6)] public string infoDescription;
 }

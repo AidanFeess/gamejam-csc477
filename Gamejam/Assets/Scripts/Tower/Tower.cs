@@ -15,9 +15,15 @@ public class Tower : MonoBehaviour
     public GameObject priestAttackEffectPrefab;
     public float priestEffectDuration = 0.5f;
 
+    [Header("Temporary Effects")]
+    public float tempRangeBuff = 1f;
+    public float tempAttackSpeedBuff = 1f;
+
     private GameObject activePriestEffect;
     private float priestEffectTimer = 0f;
     private GameObject activeEffect;
+    private bool isGhost;
+    private List<Tower> lastBuffedTowers = new List<Tower>();
 
     public int GetSellValue()
     {
@@ -42,7 +48,7 @@ public class Tower : MonoBehaviour
             RangeIndicator indicator = rangeIndicator.GetComponent<RangeIndicator>();
             if (indicator != null)
             {
-                indicator.SetRadius(data.range);
+                indicator.SetRadius(GetRangeWithBuffs());
             }
         }
     }
@@ -57,12 +63,19 @@ public class Tower : MonoBehaviour
         UpdateRangeIndicator();
         SetSelected(false);
 
+        this.isGhost = isGhost;
+
         if (!isGhost && data.towerName == "Sleep Tower" && sleepEffectPrefab != null)
         {
             Vector3 offset = new Vector3(0, 0.5f, 0);
             activeEffect = Instantiate(sleepEffectPrefab, transform.position + offset, Quaternion.identity);
             activeEffect.transform.SetParent(transform);
         }
+    }
+
+    public void UnghostTower()
+    {
+        isGhost = false;
     }
 
     public void SetSelected(bool selected)
@@ -80,6 +93,8 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        UpdateRangeIndicator(); // for buffs
+        if (isGhost) return;
         fireCooldown -= Time.deltaTime;
 
         // hide the priest attack effect after its duration expires
@@ -92,12 +107,30 @@ public class Tower : MonoBehaviour
             }
         }
 
-        Enemy target = FindTarget();
-        if (target != null && fireCooldown <= 0f)
+        if (!data.isSupport)
         {
-            Shoot(target);
-            fireCooldown = 1f / data.fireRate;
+            Enemy target = FindTarget();
+            if (target != null && fireCooldown <= 0f)
+            {
+                Shoot(target);
+                fireCooldown = 1 / (data.fireRate * data.attackSpeedBuff);
+            }
+        } 
+        else
+        {
+            Tower target = FindTowerTarget();
+            if (target != null && fireCooldown <= 0f)
+            {
+                Shoot(target);
+                fireCooldown = 1 / (data.fireRate * data.attackSpeedBuff);
+            }
         }
+        
+    }
+
+    private float GetRangeWithBuffs()
+    {
+        return data.range * tempRangeBuff;
     }
 
     // Picks the farthest target along the track
@@ -110,7 +143,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in enemyObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > data.range) continue;
+            if (dist > GetRangeWithBuffs()) continue;
 
             Enemy e = obj.GetComponent<Enemy>();
             if (e == null) continue;
@@ -125,6 +158,20 @@ public class Tower : MonoBehaviour
         return best;
     }
 
+    private Tower FindTowerTarget()
+    {
+        GameObject[] towerObjects = GameObject.FindGameObjectsWithTag("Tower");
+
+        foreach (GameObject obj in towerObjects)
+        {
+            float dist = Vector2.Distance(transform.position, obj.transform.position);
+            if (dist > GetRangeWithBuffs()) continue;
+            return obj.GetComponent<Tower>();
+        }
+
+        return null;
+    }
+
     private List<Enemy> FindAllTargetsInRange()
     {
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
@@ -133,7 +180,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject obj in enemyObjects)
         {
             float dist = Vector2.Distance(transform.position, obj.transform.position);
-            if (dist > data.range) continue;
+            if (dist > GetRangeWithBuffs()) continue;
 
             Enemy e = obj.GetComponent<Enemy>();
             if (e == null) continue;
@@ -143,7 +190,25 @@ public class Tower : MonoBehaviour
         return enemiesInRange;
     }
 
-    private void Shoot(Enemy target)
+    private List<Tower> FindAllTowersInRange()
+    {
+        GameObject[] towerObjects = GameObject.FindGameObjectsWithTag("Tower");
+        List<Tower> towersInRange = new List<Tower>();
+
+        foreach (GameObject obj in towerObjects)
+        {
+            float dist = Vector2.Distance(transform.position, obj.transform.position);
+            if (dist > GetRangeWithBuffs()) continue;
+
+            Tower t = obj.GetComponent<Tower>();
+            if (t == null || t == this) continue;
+
+            towersInRange.Add(t);
+        }
+        return towersInRange;
+    }
+
+    private void Shoot(MonoBehaviour target)
     {
         // show priest attack effect if this tower has one
         if (activePriestEffect != null)
@@ -159,27 +224,56 @@ public class Tower : MonoBehaviour
             }
         }
 
+        Vector3 targetPos = target.transform.position;
+
         if (data.isSupport)
         {
-            
+            if (!data.isAOE)
+            {
+                // doesn't exist
+            }
+            else
+            {
+                List<Tower> nearbyTowers = FindAllTowersInRange();
+                foreach (Tower tower in nearbyTowers)
+                {
+                    tower.tempAttackSpeedBuff = data.attackRangeBuff;
+                    tower.tempRangeBuff = data.attackRangeBuff;
+
+                    // sort out towers that were just buffed
+                    if (tower != null && lastBuffedTowers.Contains(tower))
+                    {
+                        print("Tower found in lastbuffedtowers");
+                        lastBuffedTowers.Remove(tower);
+                    }
+                }
+
+                // cleanup old towers no longer in range (ghosts for example)
+                foreach (Tower tower in lastBuffedTowers)
+                {
+                    tower.tempAttackSpeedBuff = 1;
+                    tower.tempRangeBuff = 1;
+                }
+
+                // list resets at the end
+                lastBuffedTowers = new List<Tower>(nearbyTowers);
+            }
         }
         else if (data.isDebuff)
         {
-            // for now assume every debuff tower is single target
             GameObject proj = Instantiate(data.projectilePrefab, transform.position, Quaternion.identity);
             Projectile p = proj.GetComponent<Projectile>();
-            p.Initialize(target.transform.position, data.damage, data.projectileSpeed, data.speedDebuff, data.debuffTime);
+            p.Initialize(targetPos, data.damage, data.projectileSpeed, data.speedDebuff, data.debuffTime);
         }
         else
         {
-            // Attack type behavior
             if (!data.isAOE)
             {
                 GameObject proj = Instantiate(data.projectilePrefab, transform.position, Quaternion.identity);
                 Projectile p = proj.GetComponent<Projectile>();
-                p.Initialize(target.transform.position, data.damage, data.projectileSpeed);
+                p.Initialize(targetPos, data.damage, data.projectileSpeed);
             }
-            else // isAOE
+            else
             {
                 List<Enemy> nearbyEnemies = FindAllTargetsInRange();
                 foreach (Enemy enemy in nearbyEnemies)
@@ -188,5 +282,18 @@ public class Tower : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        // clean up buffs, kinda shit implementation but whatever
+        if (!isGhost)
+        {
+           foreach (Tower tower in FindAllTowersInRange())
+            {
+                tower.tempAttackSpeedBuff = 1;
+                tower.tempRangeBuff = 1;
+            } 
+        } 
     }
 }

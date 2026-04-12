@@ -10,6 +10,11 @@ public class Enemy : MonoBehaviour
     public int worth = 5;
     public bool doesRotate = true;
 
+    [Header("Unlock Info")]
+    public int unlockWave = 0;
+    public Sprite infoSprite;
+    [TextArea(3, 6)] public string infoDescription;
+
     [Header("Animation")]
     public string animationStateName;
 

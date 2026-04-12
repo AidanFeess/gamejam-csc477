@@ -185,6 +185,11 @@ MonoBehaviour:
   damage: 5
   worth: 2
   doesRotate: 1
+  unlockWave: 2
+  infoSprite: {fileID: -6435710888531977222, guid: 81829b2f27855654eaea7da1d658dcee, type: 3}
+  infoDescription: Arachnophobia is the name given to an intense, irrational fear
+    of spiders. Conquering this quick but weak enemy will bring you closer to mind
+    mastery.
   animationStateName: SpiderJump
   waypoints:
   - {fileID: 0}

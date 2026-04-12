@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PriestTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Priest Tower
-  cost: 40
+  cost: 60
+  sellValue: 30
   range: 0.8
   damage: 1
   fireRate: 1
@@ -25,3 +26,11 @@ MonoBehaviour:
   towerSprite: {fileID: -827016883341640748, guid: 5afecb94b0aff134f9544992efed2048, type: 3}
   speedDebuff: 0.8
   debuffTime: 0.5
+  attackSpeedBuff: 1.15
+  attackRangeBuff: 1.15
+  unlockWave: 6
+  isLocked: 0
+  infoSprite: {fileID: -827016883341640748, guid: 5afecb94b0aff134f9544992efed2048, type: 3}
+  infoDescription: Religion is a common mechanism for facing fears, and understanding
+    your religious beliefs can bring you another step closer to mastering your mind.
+    Deals damage in a small AOE around the tower.

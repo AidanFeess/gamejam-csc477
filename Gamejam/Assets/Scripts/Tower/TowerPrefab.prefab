@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7369575618723852976}
   m_Layer: 0
   m_Name: TowerPrefab
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 6693351876008021017, guid: 256aa0ee08c364948afe242644d2e298, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,6 +111,8 @@ MonoBehaviour:
   sleepEffectPrefab: {fileID: 2317933719644634291, guid: 1fc7dbc1a40b92c45947f4d3cb6312b8, type: 3}
   priestAttackEffectPrefab: {fileID: 3645211468361983073, guid: 1c3496b1c3a3d3f40b82038d365ea5d1, type: 3}
   priestEffectDuration: 0.5
+  tempRangeBuff: 1
+  tempAttackSpeedBuff: 1
 --- !u!58 &-7369575618723852976
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -145,8 +147,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.75
+  m_Offset: {x: 0.0046203434, y: 0}
+  m_Radius: 0.33416352
 --- !u!1 &9023374761726859643
 GameObject:
   m_ObjectHideFlags: 0

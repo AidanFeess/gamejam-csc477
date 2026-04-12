@@ -185,6 +185,11 @@ MonoBehaviour:
   damage: 20
   worth: 10
   doesRotate: 0
+  unlockWave: 5
+  infoSprite: {fileID: 8225556082772143291, guid: 83b580b3af8675143b782292b3388dd3, type: 3}
+  infoDescription: 'Coulrophobia is a very common fear in adults: the fear of clowns.
+    This enemy moves slowly with a large health pool. Defeat it and continue to master
+    your mind.'
   animationStateName: 
   waypoints:
   - {fileID: 0}

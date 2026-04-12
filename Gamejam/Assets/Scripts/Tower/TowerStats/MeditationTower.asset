@@ -13,15 +13,24 @@ MonoBehaviour:
   m_Name: MeditationTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Meditation Tower
-  cost: 20
+  cost: 150
+  sellValue: 75
   range: 1.2
   damage: 5
-  fireRate: 0.5
+  fireRate: 60
   projectileSpeed: 15
-  isAOE: 0
-  isSupport: 0
+  isAOE: 1
+  isSupport: 1
   isDebuff: 0
   projectilePrefab: {fileID: 3422111073993943698, guid: 8ac786e2038c680299c8a01f4a66980b, type: 3}
   towerSprite: {fileID: 6693351876008021017, guid: 256aa0ee08c364948afe242644d2e298, type: 3}
   speedDebuff: 0.8
   debuffTime: 0.5
+  attackSpeedBuff: 1.15
+  attackRangeBuff: 1.15
+  unlockWave: 7
+  isLocked: 0
+  infoSprite: {fileID: 6693351876008021017, guid: 256aa0ee08c364948afe242644d2e298, type: 3}
+  infoDescription: 'Meditation is the key to mind mastery, calming your thoughts
+    and allowing you to breathe and think clearly. This tower gives a 15% attack
+    speed and range buff to nearby towers. '

@@ -107,6 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   speed: 10
   maxLifetime: 5
+  facesTarget: 0
+  rotationOffset: 0
 --- !u!58 &-3065937950252099597
 CircleCollider2D:
   m_ObjectHideFlags: 0
