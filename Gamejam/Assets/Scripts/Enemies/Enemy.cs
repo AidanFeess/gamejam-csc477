@@ -166,9 +166,9 @@ public class Enemy : MonoBehaviour
             Debug.LogWarning("Enemy tried to give money, but GameController.Instance is missing!");
         }
 
-        if (SoundFXManager.instance != null)
+        if (SoundFXManager.Instance != null)
         {
-            SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         }
         else
         {
