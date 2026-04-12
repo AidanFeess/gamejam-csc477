@@ -51,12 +51,14 @@ public class Tower : MonoBehaviour
         mastery = Mathf.Min(mastery + data.masteryPerKill, data.masteryCap);
         masterySlider.value = mastery / data.masteryCap;
         masteryRoot.SetActive(mastery > 0);
+        GameController.Instance.AddMastery(data.masteryPerKill);
     }
     private void AddMasteryFromShot()
     {
         mastery = Mathf.Min(mastery + data.masteryPerShot, data.masteryCap);
         masterySlider.value = mastery / data.masteryCap;
         masteryRoot.SetActive(mastery > 0);
+        GameController.Instance.AddMastery(data.masteryPerShot);
     }
     void Awake()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedicineTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: MedicineTower
-  cost: 30
+  cost: 40
   sellValue: 15
   range: 2
   damage: 2
