@@ -4661,7 +4661,7 @@ MonoBehaviour:
   waveText: {fileID: 874524801}
   gameOverScreen: {fileID: 925371858}
   gameOverText: {fileID: 1782855648}
-  pauseScreen: {fileID: 0}
+  pauseScreen: {fileID: 499035490}
   spawner: {fileID: 1302640098}
   speedButton: {fileID: 276840458}
   standardSpeedSprites:
