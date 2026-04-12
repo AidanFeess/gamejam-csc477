@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
 
 public class TowerPlacer : MonoBehaviour
 {
@@ -20,9 +22,14 @@ public class TowerPlacer : MonoBehaviour
     public TowerData towerTwo;
     public TowerData towerThree;
     public TowerData towerFour;
+    public TowerData selectedTower;
+
+    [Header("Sell UI")]
+    public GameObject sellCanvas;
+    public TMPro.TextMeshProUGUI sellValueText;
+    public Vector3 sellCanvasOffset = new Vector3(1f, 0f, 0f);
 
     // runtime state
-    public TowerData selectedTower;
     private GameObject currentGhost;
     private SpriteRenderer ghostSpriteRenderer;
     private Tower ghostTowerScript;
@@ -81,7 +88,40 @@ public class TowerPlacer : MonoBehaviour
     {
         if (currentlySelected != null) currentlySelected.SetSelected(false);
         currentlySelected = tower;
-        if (currentlySelected != null) currentlySelected.SetSelected(true);
+
+        if (currentlySelected != null)
+        {
+            currentlySelected.SetSelected(true);
+            ShowSellCanvas(currentlySelected);
+        }
+        else
+        {
+            HideSellCanvas();
+        }
+    }
+
+    private void ShowSellCanvas(Tower tower)
+    {
+        if (sellCanvas == null) return;
+        sellCanvas.SetActive(true);
+        sellCanvas.transform.position = tower.transform.position + sellCanvasOffset;
+
+        if (sellValueText != null)
+        {
+            sellValueText.text = $"Sell: {tower.data.sellValue}";
+        }
+    }
+
+    private void HideSellCanvas()
+    {
+        if (sellCanvas != null) sellCanvas.SetActive(false);
+    }
+
+    public void OnSellButtonClicked()
+    {
+        if (currentlySelected == null) return;
+        currentlySelected.Sell();
+        SelectTower(null);
     }
 
     void Update()

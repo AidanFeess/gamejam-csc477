@@ -7,6 +7,7 @@ public class TowerData : ScriptableObject
     public string towerName;
     [Header("Stats")]
     public int cost = 20;
+    public int sellValue = 10;
     public float range = 10f;
     public float damage = 5f;
     public float fireRate = 2f; // shots per second
