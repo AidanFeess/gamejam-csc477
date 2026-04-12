@@ -561,7 +561,7 @@ MonoBehaviour:
   maxHP: 5
   speed: 1.5
   damage: 5
-  worth: 2
+  worth: 3
   doesRotate: 1
   unlockWave: 2
   infoSprite: {fileID: -6435710888531977222, guid: 81829b2f27855654eaea7da1d658dcee, type: 3}
@@ -577,6 +577,7 @@ MonoBehaviour:
   - {fileID: 0}
   hpSlider: {fileID: 1055855545034639980}
   hpBarRoot: {fileID: 6479294706673786101}
+  hpBarOffset: {x: 0, y: 0.6, z: 0}
 --- !u!95 &4550478107692194811
 Animator:
   serializedVersion: 7
