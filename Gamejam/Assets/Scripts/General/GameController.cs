@@ -133,6 +133,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        #if UNITY_EDITOR
         if (Keyboard.current != null)
         {
            if (Keyboard.current.f12Key.wasPressedThisFrame)
@@ -147,7 +148,8 @@ public class GameController : MonoBehaviour
             {
                 TakeDamage(999);
             }
-        }    
+        }
+        #endif
     }
     
     public void AddMastery(float mastery)
