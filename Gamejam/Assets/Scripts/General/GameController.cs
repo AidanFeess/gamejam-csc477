@@ -39,9 +39,12 @@ public class GameController : MonoBehaviour
     public int startingCash = 60;
 
     [Header("References")]
+    public GameObject gameUI;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI waveText;
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI gameOverText;
     public EnemySpawner spawner;
 
     [Header("Speed Button")]
@@ -81,6 +84,7 @@ public class GameController : MonoBehaviour
     private int currentWaveIndex = 0;
     private bool waveInProgress = false;
     private bool autoAdvance = false;
+    private float totalMastery = 0f;
     private Coroutine activeWaveRoutine;
 
     // Speed state
@@ -138,7 +142,16 @@ public class GameController : MonoBehaviour
                 MoneyBags();
             } 
         }
+        if (currentHP <= 0)
+        {
+            GameOver();
+        }
         
+    }
+    
+    public void AddMastery(float mastery)
+    {
+        totalMastery += mastery;
     }
     
     // ───── Cheats ─────
@@ -172,6 +185,7 @@ public class GameController : MonoBehaviour
 
     public void ToggleSpeed()
     {
+        if (currentHP <= 0) return;
         isFastForward = !isFastForward;
         currentSpeed = isFastForward ? 2f : 1f;
         Time.timeScale = currentSpeed;
@@ -180,6 +194,7 @@ public class GameController : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
+        if (currentHP <= 0) return;
         currentSpeed = math.clamp(speed, 0, maxSpeed);
         Time.timeScale = currentSpeed;
         isFastForward = currentSpeed >= 2f;
@@ -196,6 +211,7 @@ public class GameController : MonoBehaviour
 
     public void OnWaveButtonClicked()
     {
+        if (currentHP <= 0) return;
         if (autoAdvance)
         {
             // click 3: turn auto off
@@ -217,6 +233,7 @@ public class GameController : MonoBehaviour
 
     public void ToggleAutoAdvance()
     {
+        if (currentHP <= 0) return;
         autoAdvance = !autoAdvance;
         UpdateWaveButtonSprites();
 
@@ -446,6 +463,13 @@ public class GameController : MonoBehaviour
         return true;
     }
 
+    private void GameOver()
+    {
+        gameUI.SetActive(false);
+        gameOverScreen.SetActive(true);
+        gameOverText.text = $"Game over!\n\nYou reached wave {currentWaveIndex}.\n\nYou mastered a total of {totalMastery:N2} brain points across all your towers.";
+    }
+
     // ───── UI ─────
 
     private void UpdateHealthUI()
@@ -455,7 +479,7 @@ public class GameController : MonoBehaviour
 
     private void UpdateCashUI()
     {
-        if (moneyText != null) moneyText.text = $"      {currentCash}";
+        if (moneyText != null) moneyText.text = $"      {currentCash:N2}";
     }
 
     private void UpdateWaveUI()
