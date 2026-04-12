@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour
     private void OnDeath() 
     {
         GameController.Instance.TryTransaction(worth);
-        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        SoundFXManager.Instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         Destroy(gameObject);
     }
 
