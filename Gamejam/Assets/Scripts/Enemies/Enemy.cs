@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     public GameObject hpBarRoot;
     public Vector3 hpBarOffset = new Vector3(0, 0.6f, 0);
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip damageSoundClip;
+
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
     private Animator animator;
@@ -149,6 +152,7 @@ public class Enemy : MonoBehaviour
     private void OnDeath() 
     {
         GameController.Instance.TryTransaction(worth);
+        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         Destroy(gameObject);
     }
 
