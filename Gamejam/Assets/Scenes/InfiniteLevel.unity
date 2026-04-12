@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 230027803}
   - component: {fileID: 230027806}
   - component: {fileID: 230027807}
+  - component: {fileID: 230027808}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -453,6 +454,19 @@ MonoBehaviour:
   mapWidth: 10.36
   mapHeight: 5.83
   mapCenter: {x: 0, y: 0}
+--- !u!114 &230027808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230027802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b866b8649492864cac3b7f3352738bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PixelateEffect
+  pixelMaterial: {fileID: 2100000, guid: d7d5d75a86b3dd34b91e14e7b185fc3d, type: 2}
 --- !u!1 &276840456
 GameObject:
   m_ObjectHideFlags: 0
