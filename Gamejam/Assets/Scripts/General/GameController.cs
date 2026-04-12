@@ -104,6 +104,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
+        pauseScreen.SetActive(false);
         currentHP = maxHP;
         currentCash = startingCash;
         UpdateHealthUI();
@@ -158,10 +159,12 @@ public class GameController : MonoBehaviour
             if (pauseScreen.activeInHierarchy == true)
             {
                 pauseScreen.SetActive(false);
+                Time.timeScale = 1;
             }
             else
             {
                 pauseScreen.SetActive(true);
+                Time.timeScale = 0;
             }
         }
     }
@@ -203,6 +206,7 @@ public class GameController : MonoBehaviour
     public void ToggleSpeed()
     {
         if (currentHP <= 0) return;
+        if (pauseScreen.activeInHierarchy == true) return;
         isFastForward = !isFastForward;
         currentSpeed = isFastForward ? 2f : 1f;
         Time.timeScale = currentSpeed;
@@ -212,6 +216,7 @@ public class GameController : MonoBehaviour
     public void SetSpeed(float speed)
     {
         if (currentHP <= 0) return;
+        if (pauseScreen.activeInHierarchy == true) return;
         currentSpeed = math.clamp(speed, 0, maxSpeed);
         Time.timeScale = currentSpeed;
         isFastForward = currentSpeed >= 2f;
