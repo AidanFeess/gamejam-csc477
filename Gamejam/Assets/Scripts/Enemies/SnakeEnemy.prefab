@@ -545,7 +545,7 @@ MonoBehaviour:
   unlockWave: 0
   infoSprite: {fileID: 306902510168618218, guid: 0e0579fe930d8ab4182d7b96b020c1df, type: 3}
   infoDescription: 'An intense fear of snakes: Ophidiophobia. These enemies are decently
-    fast, with a mid-sized health pool. Taking them out will start your journey toward
+    fast, with a mid-sized health pool. Taking them out will start your journey towards
     mind mastery.'
   animationStateName: SnakeMove
   waypoints:
@@ -558,7 +558,7 @@ MonoBehaviour:
   hpBarRoot: {fileID: 2801713311998418986}
   hpBarOffset: {x: 0, y: 0.6, z: 0}
   damageSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
-  deathSoundClip: {fileID: 8300000, guid: b235ad4efb2cc91409fd04a92696aa5f, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: a7c223984fa03ea4db04d9fca9b39ddf, type: 3}
 --- !u!1 &7191125953210951987
 GameObject:
   m_ObjectHideFlags: 0
